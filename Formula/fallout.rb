@@ -16,8 +16,8 @@ class Fallout < Formula
   homepage "https://github.com/Fallout-build/Fallout"
   # NuGet flat-container URL. `using: :nounzip` keeps the .nupkg intact (it is a
   # zip; without this Homebrew would unpack it and break `--add-source`).
+  # Version is scanned from the URL path (the `0.0.0` segment); bump both on release.
   url "https://api.nuget.org/v3-flatcontainer/fallout.globaltools/0.0.0/fallout.globaltools.0.0.0.nupkg", using: :nounzip
-  version "0.0.0"
   sha256 "0000000000000000000000000000000000000000000000000000000000000000"
   license "MIT"
 

@@ -26,10 +26,11 @@ jobs:
       - name: Tap syntax + audit
         run: brew test-bot --only-tap-syntax
 
-  # Full build/install/test of changed formulae. Disabled until the formulae
-  # point at real artifacts (see README "Status"); flip `if:` to true then.
+  # Full build/install/test of changed formulae. Off until the formulae point at
+  # real artifacts (see README "Status"). Enable by setting repo variable
+  # RUN_FORMULA_TESTS=true (Settings → Secrets and variables → Actions → Variables).
   test-formulae:
-    if: false
+    if: ${{ vars.RUN_FORMULA_TESTS == 'true' }}
     runs-on: macos-15
     steps:
       - uses: actions/checkout@v4
