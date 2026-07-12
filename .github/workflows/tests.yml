@@ -1,0 +1,42 @@
+name: brew test-bot
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  # Validate Ruby style + `brew audit` for every formula in the tap.
+  # arm64 runner only — this tap targets Apple silicon (see README).
+  test-syntax:
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Homebrew
+        uses: Homebrew/actions/setup-homebrew@master
+
+      - name: Tap syntax + audit
+        run: brew test-bot --only-tap-syntax
+
+  # Full build/install/test of changed formulae. Disabled until the formulae
+  # point at real artifacts (see README "Status"); flip `if:` to true then.
+  test-formulae:
+    if: false
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Homebrew
+        uses: Homebrew/actions/setup-homebrew@master
+
+      - run: brew test-bot --only-cleanup-before
+      - run: brew test-bot --only-setup
+      - run: brew test-bot --only-formulae
