@@ -4,6 +4,12 @@ on:
   push:
     branches: [main]
   pull_request:
+  workflow_dispatch:
+    inputs:
+      run_formula_tests:
+        description: "Also run the full formula install/test job (needs real artifacts)"
+        type: boolean
+        default: false
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -27,10 +33,10 @@ jobs:
         run: brew test-bot --only-tap-syntax
 
   # Full build/install/test of changed formulae. Off until the formulae point at
-  # real artifacts (see README "Status"). Enable by setting repo variable
-  # RUN_FORMULA_TESTS=true (Settings → Secrets and variables → Actions → Variables).
+  # real artifacts (see README "Status"). Run it manually via the Actions tab
+  # ("Run workflow" → tick "run_formula_tests") once a formula is installable.
   test-formulae:
-    if: ${{ vars.RUN_FORMULA_TESTS == 'true' }}
+    if: ${{ inputs.run_formula_tests }}
     runs-on: macos-15
     steps:
       - uses: actions/checkout@v4
