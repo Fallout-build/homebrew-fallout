@@ -24,7 +24,9 @@ brew install fallout
 
 ## Status
 
-The `fallout` formula is scaffolded but **not yet installable**: `Fallout.GlobalTools` is not on a public NuGet feed yet (previews publish to GitHub Packages only; nuget.org publish lands at the first tagged release). The formula's `version`/`url`/`sha256` are placeholders until then, and CI validates Ruby syntax + `brew audit` only. Formula bumping on each stable tag is tracked in [#133](https://github.com/Fallout-build/Fallout/issues/133).
+The `fallout` formula is scaffolded but **not yet installable** — it has no token-free source to install from. `Fallout.GlobalTools` is public on GitHub Packages, but GitHub's NuGet registry requires authentication even for public packages (anonymous download returns `401`), so the formula can't point at it. nuget.org has nothing yet (publish lands at the first tagged release). The formula's `version`/`url`/`sha256` are placeholders until an anonymously-downloadable preview artifact exists; CI validates Ruby syntax + `brew audit` only.
+
+Getting to an installable preview is tracked in [Fallout#482](https://github.com/Fallout-build/Fallout/issues/482); formula bumping on each stable tag in [Fallout#133](https://github.com/Fallout-build/Fallout/issues/133).
 
 ## License
 
